@@ -1,26 +1,35 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
+
 import styled from 'styled-components';
 import axios from "axios";
+
 import DiaHabito from "./DiaHabito";
 import weekDays from "../Common/WeekDays";
+import ListReload from "../context/ListReload";
 
 export default function AddHabit ( { token, setTrue } ) {
+    const { reload, setReload } = useContext(ListReload)
     const [nomeHabito, setNomeHabito] = useState("");
-    //const [whichDay, setWhichDay] = useState([]);
     const navigate = useNavigate();
-console.log(token)
+
+    function rerender () {
+        if (!reload) {setReload(true)} else {setReload(false)}
+        console.log(reload)
+    }
+
 
     const selecionados = []; 
 
             function salvar (event) {
                 event.preventDefault();
+                //setTrue()
         
                 const info = {
                    name: nomeHabito,
                    days: selecionados
                }
-                console.log(info)
 
                 const config = {
                     headers: {
@@ -30,19 +39,17 @@ console.log(token)
            
                          const request =  axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits`, info, config);
                 
-                         request.then(resposta => {
-                         
-                             console.log(resposta.data)
-                           
-                             navigate("/habitos")
-                         });
+                         request.then( (resposta) => 
+                            console.log(resposta.data));
+
+                        request.then( rerender, setTrue() )
         
-                         request.catch(console.log("deu ruim salvar"))
+                         request.catch( resposta => alert("Não foi possível salvar o hábito"))
                     }
     
 
             return (
-                <Card>
+                <Card >
                     <input placeholder="nome do habito" onChange={(e) => setNomeHabito(e.target.value)} value={nomeHabito} name="name"/>
 
                     <Semana>

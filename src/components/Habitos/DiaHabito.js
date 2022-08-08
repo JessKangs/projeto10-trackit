@@ -22,10 +22,6 @@ export default function DiaHabito ({selecionados, day, index}) {
                 const jaSelecionado = selecionados.some(dia => dia === day.id)
     
                 if (!jaSelecionado) selecionados.push(day.id);
-                
-                //console.log(selecionados)
-                
-                //console.log(jaSelecionado) 
 
                 choose()
                 

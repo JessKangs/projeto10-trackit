@@ -1,20 +1,42 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import weekDays from "../WeekDays";
 
-export default function WeekDay ({ data }) {
-    const [id, setId] = useState('')
+export default function WeekDay ({ token }) {
     const [color, setColor] = useState(false);
 
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    
+        useEffect(() => {
+    
+                const request =  axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config);
+    
+                 request.then(resposta => 
+                    
+                        resposta.data.map((data, i) => 
+                        weekDays.map((weekDays, index) => {
+    
+                            data.days.map((habitDays, i) => weekDays.id === habitDays ? setColor(true) : '') } )) )  
+    
+                 request.catch(console.log("deu ruim listar"))
+             
+    
+    
+       }, []);
+
     return (
-        weekDays.map((value, index) => 
+        weekDays.map((value, index) =>
                 <DiaSemana color={color} key={index} >
-                <h2>{value.diaSemana}</h2>
-                </DiaSemana>)
+                    <h2>{value.diaSemana}</h2>
+                </DiaSemana>
+                )
     )
         
-    
 
 }
 

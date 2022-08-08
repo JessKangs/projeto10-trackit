@@ -5,12 +5,13 @@ import AddHabit from '../Habitos/AddHabit'
 export default function MeusHabitos ( {token}) {
 
     const [addHabit, setAddHabit] = useState(false);
-  
+
     function setTrue () {
         if (addHabit === false) {
             setAddHabit(true)
         } else { setAddHabit(false) }
     }
+
 
     return (
            <>

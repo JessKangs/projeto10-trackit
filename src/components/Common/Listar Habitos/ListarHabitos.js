@@ -1,34 +1,26 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 import WeekDay from './WeekDay';
+import weekDays from '../WeekDays';
 import EraseHabit from '../../Habitos/EraseHabit';
+import ColorWeekD from "../../context/ColorWeekD"
 
-export default function ListarHabitos ( { token } ) {
-    const [list, setList] = useState("")
+export default function ListarHabitos ( { data, token } ) {
+  const [list, setList] = useState([])
 
+    return (
+        <Background>
 
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }
-   
-       
-        
-       
-             useEffect(() => {
-                const request =  axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config);
+            {data.length === 0 ?
+
+                        <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
     
-                request.then(resposta => {
-                   console.log(resposta.data)
-                   console.log(resposta.data[0].days)  
-                  
+                :
 
-                  setList (
-                    resposta.data.map( (habitInfo, index) => 
-                        
+                        data.map( (habitInfo, index) =>
+
 
                 <CardHabitoSalvo key={index}>
 
@@ -38,50 +30,22 @@ export default function ListarHabitos ( { token } ) {
                         <EraseHabit token={token} habit={habitInfo.id} />
 
                       </Header>
-                                
+
                      <Semana>
-                    
-                     <WeekDay data={habitInfo} key={index} />
-                        
+
+                     <WeekDay data={habitInfo} key={index} token={token} />
+
                      </Semana>
 
                  </CardHabitoSalvo>
-                              )
-                  )
-                
-                   //navigate("/")
-               })
+                 
+                              )}
 
-             
-   
-               request.catch(console.log("deu ruim listar"))    
-   
-                }, []);    
-        
-        
-
-
-            //      {list.days.map((day) => {
-            //           const jaSelecionado = day.some(dia => dia === day.days)
-
-            //           if (jaSelecionado) setColor(true)
-                    
-            //           console.log(jaSelecionado) 
-                    
-            //           return "deu bom"
-            //   })}   
-        //console.log(list)
-
-//const [lista, setLista] = useState(listar)
-    return (
-        <Background>
-            {list}
         </Background>
     )
 
 }
 
-// {listaHabitos.length !== 0 ? console.log(listaHabitos) : <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>}
 
 const CardHabitoSalvo = styled.div`
     width: 340px;
@@ -98,7 +62,7 @@ const CardHabitoSalvo = styled.div`
        margin-left: 15px;
        margin-top: 13px;
        font-size: 20px;
-       color: #666666; 
+       color: #666666;
     }
 `
 
@@ -112,11 +76,12 @@ const Semana = styled.div`
 
 const Background = styled.div`
     background-color: #E5E5E5;
-    height: 750px;
-    overflow-y: hidden;
+    height: auto;
     display: flex;
     align-items: center;
     flex-direction: column;
+    padding-bottom: 110px;
+
 `
 const Header = styled.div`
     width: 315px;

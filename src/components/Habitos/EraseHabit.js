@@ -1,8 +1,15 @@
+import ListReload from "../context/ListReload";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import trash from '../../assets/img/trash.svg'
+import { useContext } from "react";
 
-export default function EraseHabit (habit, reloadPage) {
+export default function EraseHabit (habit) {
+        const { reload, setReload } = useContext(ListReload)
+
+        function rerender () {
+                if (!reload) {setReload(true)} else {setReload(false)}
+                console.log(reload)
+            }
 
         const config = {
                 headers: {
@@ -11,11 +18,16 @@ export default function EraseHabit (habit, reloadPage) {
             }
 
         function apagar () {
+
+                if (window.confirm("Você realmente quer apagar esse hábito?")) {
                 const request =  axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.habit}`, config);
     
-                request.then(
-                alert("Você deletou seu hábito!")
-                )
+             
+                request.then( rerender )
+                request.then( () => alert("Hábito apagado com sucesso!") ) 
+                }
+
+                
                 
             
         }
