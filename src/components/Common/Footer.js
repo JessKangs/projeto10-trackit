@@ -13,13 +13,13 @@ export default function Footer ({token}) {
         }
     }
 
-         useEffect(() => {
-            const request =  axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config);
+        //  useEffect(() => {
+        //     const request =  axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config);
 
-            request.then(resposta => {
-               console.log(resposta.data)
-               //console.log(resposta.data[0].days)
-              }) }, [])
+        //     request.then(resposta => {
+        //        console.log(resposta.data)
+        //        //console.log(resposta.data[0].days)
+        //       }) }, [])
 
     const percentage = "Hoje";
     const value = 66;

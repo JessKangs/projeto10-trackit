@@ -15,25 +15,24 @@ export default function ListarHabitos ( { data, token } ) {
 
             {data.length === 0 ?
 
-                        <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+                <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
     
                 :
 
-                        data.map( (habitInfo, index) =>
-
+                data.map( (habitInfo, index) =>
 
                 <CardHabitoSalvo key={index}>
 
-                      <Header>
+                    <Header>
 
-                        <h2>{habitInfo.name}</h2>
-                        <EraseHabit token={token} habit={habitInfo.id} />
+                      <h2>{habitInfo.name}</h2>
+                      <EraseHabit token={token} habit={habitInfo.id} />
 
-                      </Header>
+                    </Header>
 
                      <Semana>
 
-                     <WeekDay data={habitInfo} key={index} token={token} />
+                     <WeekDay data={habitInfo} key={index}  />
 
                      </Semana>
 

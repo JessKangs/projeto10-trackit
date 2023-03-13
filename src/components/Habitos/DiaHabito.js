@@ -1,10 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
-import weekDays from "../Common/WeekDays";
 
-export default function DiaHabito ({selecionados, day, index}) {
+export default function DiaHabito ({setSelecionados, selecionados, day, index}) {
     
-        const [color, setColor] = useState(false)
+    const [color, setColor] = useState(false)
+    const diasSelecionados = [];
 
     function choose () {
 
@@ -13,16 +13,18 @@ export default function DiaHabito ({selecionados, day, index}) {
         } else { setColor(true)}
 
     }
-
+   
     return (
 
         
             <DiaSemana color={color} key={index} onClick={() => 
             {
-                const jaSelecionado = selecionados.some(dia => dia === day.id)
+                const jaSelecionado = diasSelecionados.some(dia => dia === day.id)
     
-                if (!jaSelecionado) selecionados.push(day.id);
-
+                if (!jaSelecionado) diasSelecionados.push(day.id);
+                
+                setSelecionados([...selecionados, diasSelecionados[0]])
+                
                 choose()
                 
             }

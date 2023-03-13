@@ -24,14 +24,12 @@ export default function Habits ( { token, img }) {
 
             
 
-                const request =  axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config);
+        const request =  axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config);
 
-                 request.then(resposta => 
-                    setData(resposta.data) )
+            request.then(resposta => 
+                setData(resposta.data) )
 
-                 request.catch(console.log("deu ruim listar"))
-             
-
+            request.catch(console.log("deu ruim listar"))
 
        }, [reload ? 2 : '']);
 

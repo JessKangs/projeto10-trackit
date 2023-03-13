@@ -20,7 +20,7 @@ export default function AddHabit ( { token, setTrue } ) {
     }
 
 
-    const selecionados = []; 
+    const [selecionados, setSelecionados] = useState([])
 
             function salvar (event) {
                 event.preventDefault();
@@ -30,22 +30,22 @@ export default function AddHabit ( { token, setTrue } ) {
                    name: nomeHabito,
                    days: selecionados
                }
-
+              
                 const config = {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 }
            
-                         const request =  axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits`, info, config);
+                 const request =  axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits`, info, config);
                 
-                         request.then( (resposta) => 
+                    request.then( (resposta) => 
                             console.log(resposta.data));
 
-                        request.then( rerender, setTrue() )
+                    request.then( rerender, setTrue() )
         
-                         request.catch( resposta => alert("Não foi possível salvar o hábito"))
-                    }
+                    request.catch( resposta => alert("Não foi possível salvar o hábito"))
+                }
     
 
             return (
@@ -55,7 +55,7 @@ export default function AddHabit ( { token, setTrue } ) {
                     <Semana>
                     
                     {weekDays.map( (day, index) => 
-                        <DiaHabito day={day} index={index} selecionados={selecionados}/>)}
+                        <DiaHabito day={day} index={index} setSelecionados={setSelecionados} selecionados={selecionados}/>)}
                         
                     </Semana>
 
